@@ -31,10 +31,10 @@ public class SocketServer : IMessageServer, IDisposable
         _server.Bind(_configuration.EndPoint);
         _server.Listen(100);
 
-        var handler = await _server.AcceptAsync(token);
-
         while (!token.IsCancellationRequested)
         {
+            var handler = await _server.AcceptAsync(token);
+
             var receiveBuffer = new byte[300];
 
             var received = await handler.ReceiveAsync(receiveBuffer, SocketFlags.None);
